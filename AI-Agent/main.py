@@ -4,19 +4,17 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from openai.types.chat import ChatCompletion, ChatCompletionMessageParam
 
+from functions.get_files_info import get_files_info
+
 def main():
-    try:
-        client = init()
-    except Exception as e:
-        print(e)
-        exit(1)
-
-    args = parser()
-
-    run_prompt(client, args)
-
-if __name__ == "__main__":
-    main()
+     try:
+         client = init()
+     except Exception as e:
+         print(e)
+         exit(1)
+     get_files_info("calculator")
+     # args = parser()
+     # run_prompt(client, args)
 
 def get_api_key() -> str:
     load_dotenv()
@@ -66,3 +64,7 @@ def parser() -> argparse.Namespace:
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
     parser.add_argument("user_prompt", type=str, help="User prompt")
     return parser.parse_args()
+
+if __name__ == "__main__":
+    main()
+
