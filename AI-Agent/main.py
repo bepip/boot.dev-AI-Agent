@@ -12,9 +12,8 @@ def main():
      except Exception as e:
          print(e)
          exit(1)
-     get_files_info("calculator")
-     # args = parser()
-     # run_prompt(client, args)
+     args = parser()
+     run_prompt(client, args)
 
 def get_api_key() -> str:
     load_dotenv()
