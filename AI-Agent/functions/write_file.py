@@ -11,11 +11,11 @@ schema_write_file = {
             "properties": {
                 "file_path": {
                     "type": "string",
-                    "description": "File path to write the content to, relative to the working directory",
+                    "description": "Path to the file to write, relative to the working directory",
                 },
-                "directory": {
-                    "type": "content",
-                    "description": "Content to write into the file",
+                "content": {
+                    "type": "string",
+                    "description": "Text content to write to the file",
                 },
             },
             "required": ["file_path", "content"],

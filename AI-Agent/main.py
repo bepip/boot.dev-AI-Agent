@@ -5,7 +5,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from openai.types.chat import ChatCompletion, ChatCompletionMessageParam
 from prompts import system_prompt
-from functions.call_functions import available_functions
+from functions.call_functions import available_functions, call_function
 
 def main():
      try:
@@ -45,8 +45,6 @@ def run_prompt(client: OpenAI, args: argparse.Namespace) -> None:
             )
     print_response(response, prompt, verbose)
 
-
-
 def print_response(response: ChatCompletion, prompt: str, verbose: bool):
     if response.usage is None:
         raise RuntimeError("Did not receive a response")
@@ -64,8 +62,11 @@ def print_response(response: ChatCompletion, prompt: str, verbose: bool):
     for tool_call in message.tool_calls:
         if tool_call.type != "function":
             continue
-        function_args = json.loads(tool_call.function.arguments or "{}")
-        print(f"Calling function: {tool_call.function.name}({function_args})")
+        result_message = call_function(tool_call, verbose)
+        if not result_message.get("content"):
+            raise RuntimeError(f"content missing from response for {tool_call.function.name}")
+        if verbose:
+            print(f'-> {result_message["content"]}')
 
 def parser() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Chatbot")
