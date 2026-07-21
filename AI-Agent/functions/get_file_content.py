@@ -3,6 +3,23 @@ from typing_extensions import Tuple
 
 from config import MAX_CHARS
 
+schema_get_file_content = {
+    "type": "function",
+    "function": {
+        "name": "get_file_content",
+        "description": "Lists the content of the given file (at most {MAX_CHARS} characters) in a specified directory relative to the working directory",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "file_path": {
+                    "type": "string",
+                    "description": "File path to get the content from, relative to the working directory",
+                },
+            },
+            "required": ["file_path"],
+        },
+    },
+}
 
 def get_file_content(working_directory: str, file_path: str) -> str:
     target_file, err = check_path(working_directory, file_path)

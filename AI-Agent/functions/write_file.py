@@ -1,6 +1,28 @@
 import os
 from typing import Tuple
 
+schema_write_file = {
+    "type": "function",
+    "function": {
+        "name": "write_file",
+        "description": "Write the provided content to a given name file relative to the working directory. Creates the file if it does nto exists and overwrites the previous content if the file exists",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "file_path": {
+                    "type": "string",
+                    "description": "File path to write the content to, relative to the working directory",
+                },
+                "directory": {
+                    "type": "content",
+                    "description": "Content to write into the file",
+                },
+            },
+            "required": ["file_path", "content"],
+        },
+    },
+}
+
 def write_file(working_directory: str, file_path: str, content: str) -> str:
     target_file, err = check_path(working_directory, file_path)
     if not target_file:

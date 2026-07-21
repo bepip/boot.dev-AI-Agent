@@ -3,6 +3,29 @@ from typing import Tuple
 import subprocess
 
 
+schema_run_python_file = {
+    "type": "function",
+    "function": {
+        "name": "run_python_file",
+        "description": "Execute python file (only accepts *.py extensions). The given file name is relative to the working directory",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "file_path": {
+                    "type": "string",
+                    "description": "File path to execute from, relative to the working directory",
+                },
+                "args": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Optional list of arguments to pass to the Python script",
+                    }
+            },
+            "required": ["file_path"],
+        },
+    },
+}
+
 def run_python_file(
         working_directory: str, file_path: str, args: list[str] | None = None
         ) -> str:
