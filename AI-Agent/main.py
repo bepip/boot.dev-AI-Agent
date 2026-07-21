@@ -4,8 +4,6 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from openai.types.chat import ChatCompletion, ChatCompletionMessageParam
 
-from functions.get_files_info import get_files_info
-
 def main():
      try:
          client = init()
