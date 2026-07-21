@@ -3,6 +3,8 @@ import argparse
 from openai import OpenAI
 from dotenv import load_dotenv
 from openai.types.chat import ChatCompletion, ChatCompletionMessageParam
+from prompts import system_prompt
+
 
 def main():
      try:
@@ -31,10 +33,8 @@ def run_prompt(client: OpenAI, args: argparse.Namespace) -> None:
     prompt :str  = args.user_prompt
     verbose: bool = args.verbose
     msgs: list[ChatCompletionMessageParam]=[
-            {
-                "role": "user",
-                "content": prompt
-                }
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": prompt},
             ]
 
     response =  client.chat.completions.create(
