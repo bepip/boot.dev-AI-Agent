@@ -32,6 +32,7 @@ def call_function(tool_call: ChatCompletionMessageToolCallUnion, verbose: bool =
         print(f' - Calling function: {function_name}({function_args})')
     else:
         print(f' - Calling function: {function_name}')
+
     if function_name not in function_map:
         return {
                 "role": "tool",
